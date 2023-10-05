@@ -1,0 +1,17 @@
+# This workflow deletes all the scratch orgs from the pool on a set time, so that pools can be recreated with new artifacts
+name: "Check Code coverage"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean-pool-dev:
+    name: "Clean the Dev Pool"
+    runs-on: ubuntu-latest
+    container: ghcr.io/dxatscale/sfpowerscripts:release-apr23
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Delete the pool"
+        run: "sfdx sfpowerkit:package:version:codecoverage -i xx "
